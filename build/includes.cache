@@ -1,0 +1,137 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\jlnbo\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\cores\\esp8266"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\jlnbo\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\variants\\nodemcu"
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\app01.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\app\\App.cpp",
+    "Include": "LiquidMenu.h",
+    "Includepath": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidMenu\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\app\\App.cpp",
+    "Include": "LiquidCrystal_I2C.h",
+    "Includepath": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidCrystal_I2C"
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\app\\App.cpp",
+    "Include": "NoDelay.h",
+    "Includepath": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\NoDelay\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\app\\App.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\lib\\ContainerScreen.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\lib\\CustomCharDefs.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\lib\\CustomChars.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\lib\\MenuController.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\models\\TimeModel.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\models\\WeekModel.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\screens\\InfoScreen.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\screens\\TemplateScreen.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\screens\\TextInputScreen.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\screens\\TimeScreen.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\sketch\\src\\screens\\WeekScreen.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidMenu\\src\\LiquidLine.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidMenu\\src\\LiquidMenu.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidMenu\\src\\LiquidScreen.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidMenu\\src\\LiquidSystem.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidMenu\\src\\recognizeType.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidCrystal_I2C\\LiquidCrystal_I2C.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Users\\jlnbo\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\libraries\\Wire"
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\LiquidCrystal_I2C\\LiquidCrystal_I2C.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\NoDelay\\src\\NoDelay.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jlnbo\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.1.2\\libraries\\Wire\\Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

@@ -1,0 +1,26 @@
+#line 1 "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\src\\screens\\WeekScreen.h"
+#ifndef __WEEK_SCREEN_H__
+#define __WEEK_SCREEN_H__
+
+#include "Screen.h"
+#include "WeekModel.h"
+
+class WeekUI;
+
+class WeekScreen : public Screen
+{
+public:  
+  WeekScreen(MenuController &c, WeekModel &w);
+  ~WeekScreen() override;
+  bool onEvent(Event event);
+
+private:
+  WeekUI * ui;
+
+  bool ev_cw_step();
+  bool ev_ccw_step();
+  bool ev_confirm_pressed();
+  bool ev_cancel_pressed();
+};
+
+#endif /*__WEEK_SCREEN_H__*/

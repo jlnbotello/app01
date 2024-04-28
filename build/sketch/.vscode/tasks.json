@@ -1,0 +1,21 @@
+#line 1 "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\.vscode\\tasks.json"
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "flash esp8266",
+            "type": "shell",
+            "command": "esptool --chip esp8266 --port \"COM4\" --baud \"921600\" --before default_reset --after hard_reset write_flash 0x0 \"c:\\Users\\jlnbo\\Repos\\esp8266\\app01\\build\\app01.ino.bin\"",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

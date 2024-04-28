@@ -1,0 +1,19 @@
+C:\Users\jlnbo\Repos\esp8266\app01\build\libraries\LiquidMenu\LiquidLine.cpp.o: \
+ C:\Users\jlnbo\Documents\Arduino\libraries\LiquidMenu\src\LiquidLine.cpp \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2\cores\esp8266\CommonHFile.h \
+ C:\Users\jlnbo\Repos\esp8266\app01\build\core\app01.ino.globals.h \
+ C:\Users\jlnbo\Documents\Arduino\libraries\LiquidMenu\src\LiquidMenu.h \
+ C:\Users\jlnbo\Documents\Arduino\libraries\LiquidMenu\src\LiquidMenu_config.h \
+ C:\Users\jlnbo\Documents\Arduino\libraries\LiquidMenu\src\LiquidMenu_const.h \
+ C:\Users\jlnbo\Documents\Arduino\libraries\LiquidMenu\src\LiquidMenu_debug.h \
+ C:\Users\jlnbo\Documents\Arduino\libraries\LiquidCrystal_I2C/LiquidCrystal_I2C.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2\cores\esp8266/Print.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2\cores\esp8266/WString.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2\cores\esp8266/pgmspace.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2/tools/sdk/include/ets_sys.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2/tools/sdk/include/c_types.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2/tools/sdk/include/eagle_soc.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2/tools/sdk/include/osapi.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2\cores\esp8266/user_config.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2\cores\esp8266/Printable.h \
+ C:\Users\jlnbo\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.1.2\cores\esp8266/stdlib_noniso.h
