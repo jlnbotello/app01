@@ -1,9 +1,0 @@
-#line 1 "C:\\Users\\jlnbo\\Repos\\esp8266\\app01\\.vscode\\settings.json"
-{
-    "arduino.disableIntelliSenseAutoGen": true,
-    "C_Cpp.default.includePath": [
-        "screens"
-    ], // to avoid overwritting of c_cpp_properties.json
-}
-
-/* Create a empty example using the extension copy c_cpp_properties.json and adapt. Then disable auto-configuration */
