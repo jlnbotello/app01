@@ -7,20 +7,29 @@
 #include "MenuController.h"
 #include "Selector.h"
 #include "ScreenFactory.h"
+#include "CardReader.h"
 
 /*---------------------------------[PREPROCESSOR DEFS]------------------------*/
-
+/* LCD */
 #define LCD_ADDRESS 0x27
 #define LCD_COLUMNS 20
-#define LCD_ROWS 4
+#define LCD_ROWS    4
 
+/* Digital Pot */
 #define SW_PIN      D0
 #define DT_PIN      D3
 #define CLK_PIN     D4
 
+/* MRFC522 */
+#define SS_PIN      D8
+#define RST_PIN     10 //S3
+
 /*---------------------------------[TYPE DEFS]--------------------------------*/
 
 /*---------------------------------[PRIVATE DATA]-----------------------------*/
+
+//static CardReader * cardReader;
+MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 static LiquidCrystal_I2C lcd(LCD_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 static MenuController *menu;
@@ -74,12 +83,19 @@ static void sw_lp_event_cb()
     App_printFreeMemory();
 }
 
+bool isCardDetected();
+MFRC522::Uid getDetectedCardUID(void);
+void printUID(MFRC522::Uid uid);
+
 
 /*---------------------------------[PUBLIC FUNCTIONS]-------------------------*/
 
 void App_setup()
 {
     Serial.println("### APP INIT ###");
+
+    SPI.begin();
+    mfrc522.PCD_Init();
 
     App_printFreeMemory();
 
@@ -109,10 +125,18 @@ void App_setup()
 
 void App_loop()
 {
+    //cardReader.run();
     selector.run();
     timer1.update();
     timer2.update();
     menu->TriggerEvent(Event::EV_UPDATE_LOOP);
+
+
+  if (isCardDetected()) 
+  {
+    MFRC522::Uid cardUID = getDetectedCardUID();
+    printUID(cardUID);
+  }  
 }
 
 void App_printFreeMemory()
@@ -120,4 +144,40 @@ void App_printFreeMemory()
     Serial.print("Free Memory: ");
     //Serial.print(freeMemory());
     Serial.println(" bytes");
+}
+
+
+/*---------------------------------[rfid]------------------------------*/
+bool isCardDetected()
+{
+  // Look for new cards
+  if ( ! mfrc522.PICC_IsNewCardPresent()) 
+  {
+    return false;
+  }
+  // Select one of the cards
+  if ( ! mfrc522.PICC_ReadCardSerial()) 
+  {
+    return false;
+  }
+  return true;
+}
+
+MFRC522::Uid getDetectedCardUID(void)
+{
+  return mfrc522.uid;
+}
+
+void printUID(MFRC522::Uid uid)
+{
+  Serial.print("UID Tag: ");
+
+  for (byte i = 0; i < uid.size; i++) 
+  {
+    Serial.print(" ");
+    Serial.print(uid.uidByte[i] < 0x10 ? " 0" : " ");
+    Serial.print(uid.uidByte[i], HEX);
+  }
+
+  Serial.println();
 }

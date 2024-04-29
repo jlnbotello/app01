@@ -1,7 +1,7 @@
 {
     "arduino.disableIntelliSenseAutoGen": true,
     "C_Cpp.default.includePath": [
-        "screens"
+        "C:\\Users\\jlnbo\\Documents\\Arduino\\libraries\\MFRC522\\src",
     ], // to avoid overwritting of c_cpp_properties.json
 }
 
