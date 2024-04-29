@@ -1,20 +1,161 @@
 /*---------------------------------[INCLUDES]---------------------------------*/
 #include "TextInputScreen.h"
+#include <vector>
+#include <utility>
 
 /*---------------------------------[PRIVATE]----------------------------------*/
 
+class RowString
+{
+public:
+    RowString(int row, char * str, int strLen) : _row(row), _str(str), _strLen(strLen) {};
+    ~RowString() {};
+
+    int getRow() { return _row; }
+    char * getStr() { return _str; }
+    int getStrLen() { return _strLen; }
+
+private:
+    int _row;
+    char * _str;
+    int _strLen;
+};
+
+class Cursor {
+public:
+    Cursor(int minCol, int maxCol, int minRow, int maxRow) : 
+        _col(minCol), _row(minRow), 
+        _minCol(minCol), _maxCol(maxCol), 
+        _minRow(minRow), _maxRow(maxRow) {};
+    ~Cursor(){};
+
+    void incrementCursor()
+    {
+        _col++;
+
+        if (_col > _maxCol) 
+        {
+            _col = _minCol;
+            _row++;
+
+            if (_row > _maxRow)
+            {
+                _row = _minRow;
+            }
+        }
+
+        while(isForbiddenPosition(_col, _row))
+        {
+            incrementCursor();
+        };
+    }
+
+    void decrementCursor()
+    {
+        _col--;
+
+        if (_col < _minCol) 
+        {
+            _col = _maxCol;
+            _row--;
+            if (_row < _minRow)
+            {
+                _row = _maxRow;
+            }
+        }
+
+        while(isForbiddenPosition(_col, _row))
+        {
+            decrementCursor();
+        };
+    }
+
+    void setCursor(int col, int row) 
+    { 
+        if(col >= _minCol && col <= _maxCol && row >= _minRow && row <= _maxRow)
+        {
+            _col = col; 
+            _row = row;
+        }
+    }     
+
+    void addForbiddenPosition(int col, int row)
+    {
+        if(col >= _minCol && col <= _maxCol && row >= _minRow && row <= _maxRow)
+        {
+            _forbiddenPositions.push_back(std::make_pair(col, row));
+        }
+    }
+
+    bool isForbiddenPosition(int col, int row)
+    {
+        for(auto &pos : _forbiddenPositions)
+        {
+            if(pos.first == col && pos.second == row)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    uint8_t getCol() { return _col; }
+    uint8_t getRow() { return _row; }
+
+    void addString(int row, char * str, int strLen)
+    {
+        _rowStrings.push_back(RowString(row, str, strLen));
+    }
+
+    char getCharAtPosition(int col, int row)
+    {
+        for(auto &rowString : _rowStrings)
+        {
+            if(rowString.getRow() == row)
+            {
+                return rowString.getStr()[col];
+            }
+        }
+        return 0;
+    }
+
+private:
+    int _col;
+    int _row;
+    int _minCol;
+    int _maxCol;
+    int _minRow; 
+    int _maxRow;
+    std::vector<std::pair<int, int>> _forbiddenPositions;
+    std::vector<RowString> _rowStrings;
+};
+
 bool TextInputScreen::ev_cw_step() {
-    // Implementation for clockwise step event
+    _cursor->incrementCursor();
+    m_controller.GetServices()->pLcd->setCursor(_cursor->getCol(), _cursor->getRow());
     return true;
 }
 
 bool TextInputScreen::ev_ccw_step() {
-    // Implementation for counter-clockwise step event
+    _cursor->decrementCursor();
+    m_controller.GetServices()->pLcd->setCursor(_cursor->getCol(), _cursor->getRow());
     return true;
 }
 
 bool TextInputScreen::ev_confirm_pressed() {
-    // Implementation for confirm button pressed event
+    char c = _cursor->getCharAtPosition(_cursor->getCol(), _cursor->getRow());
+    if(c != 0)
+    {
+        Serial.println(c);
+        _inputLine[_inputLineIndex] = c;
+        _inputLineIndex++;
+        update();
+    }
+    else
+    {
+        Serial.println("Invalid character");
+        return false;
+    }
     return true;
 }
 
@@ -24,7 +165,12 @@ bool TextInputScreen::ev_cancel_pressed() {
 }
 
 bool TextInputScreen::ev_update() {
-    // Implementation for update event
+    if(!_initCursor)
+    {
+        m_controller.GetServices()->pLcd->setCursor(_cursor->getCol(), _cursor->getRow());
+        m_controller.GetServices()->pLcd->cursor();
+        _initCursor = true;
+    }
     return true;
 }
 
@@ -32,23 +178,35 @@ bool TextInputScreen::ev_update() {
 
 TextInputScreen::TextInputScreen(MenuController &c, String &m) : Screen(c), model(m)
 {
-
-    LiquidLine *pInputLine      = new LiquidLine(0, 0, ">", "HOMER SIMPSON");
-    LiquidLine *pABCLine        = new LiquidLine(0, 1, "ABCDEFGHIJKLMNOPQRST");
-    LiquidLine *pSelectorLine   = new LiquidLine(0, 2, "ʌ");
-    LiquidLine *p123Line        = new LiquidLine(0, 3, "UVWXYZ0123456789 DEL");
+    static char KeyboardStringLine1[] = "ABCDEFGHIJKLMNOPQRST";
+    static char KeyboardStringLine2[] = "UVWXYZ0123456789";
+    
+    LiquidLine *pInputLine      = new LiquidLine(0, 0, ">", _inputLine);
+    LiquidLine *pKeyboardLine1  = new LiquidLine(0, 1, KeyboardStringLine1);
+    LiquidLine *pKeyboardLine2  = new LiquidLine(0, 2, KeyboardStringLine2);
 
     addLine(pInputLine);
-    addLine(pABCLine);
-    addLine(pSelectorLine);
-    addLine(p123Line);
+    addLine(pKeyboardLine1);
+    addLine(pKeyboardLine2);
 
-    update();    
+    _cursor = new Cursor(0, 19, 1, 2);
+    _cursor->addString(1, KeyboardStringLine1, 20);
+    _cursor->addString(2, KeyboardStringLine2, 15);
+
+    // empty spaces
+    _cursor->addForbiddenPosition(16, 2);
+    _cursor->addForbiddenPosition(17, 2);
+    _cursor->addForbiddenPosition(18, 2);
+    _cursor->addForbiddenPosition(19, 2);
+
+    update();
 }
 
 TextInputScreen::~TextInputScreen() 
 {
-    // Destructor implementation
+    delete(_cursor);
+    _cursor = nullptr;
+    m_controller.GetServices()->pLcd->noCursor();
 }
 
 bool TextInputScreen::onEvent(Event event) {
@@ -62,6 +220,8 @@ bool TextInputScreen::onEvent(Event event) {
             return ev_confirm_pressed();
         case Event::EV_CANCEL_PRESSED:
             return ev_cancel_pressed();
+        case Event::EV_UPDATE_LOOP:
+            return ev_update();
         default:
             return false;
     }
