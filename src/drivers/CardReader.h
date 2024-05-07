@@ -4,9 +4,15 @@
 class CardReader
 {
 public:
-    CardReader(MFRC522 instance) : mfrc522(instance)
+    CardReader(MFRC522 & instance) : mfrc522(instance)
     {
    
+    }
+
+    void init(void)
+    {
+        SPI.begin();        // Init SPI bus
+        mfrc522.PCD_Init(); // Init MFRC522
     }
 
     bool isNewCardPresent()

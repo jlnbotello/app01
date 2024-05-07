@@ -28,8 +28,8 @@
 
 /*---------------------------------[PRIVATE DATA]-----------------------------*/
 
-//static CardReader * cardReader;
-MFRC522 mfrc522(SS_PIN, RST_PIN);
+static MFRC522 mfrc522(SS_PIN, RST_PIN);
+static CardReader cardReader(mfrc522);
 
 static LiquidCrystal_I2C lcd(LCD_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 static MenuController *menu;
@@ -83,20 +83,14 @@ static void sw_lp_event_cb()
     App_printFreeMemory();
 }
 
-bool isCardDetected();
-MFRC522::Uid getDetectedCardUID(void);
-void printUID(MFRC522::Uid uid);
-
-
 /*---------------------------------[PUBLIC FUNCTIONS]-------------------------*/
 
 void App_setup()
 {
     Serial.println("### APP INIT ###");
 
-    SPI.begin();
-    mfrc522.PCD_Init();
-
+    cardReader.init();
+    
     App_printFreeMemory();
 
     selector.addCallback(Selector::CbType::CCW_CB, ccw_event_cb);
@@ -125,18 +119,11 @@ void App_setup()
 
 void App_loop()
 {
-    //cardReader.run();
+    cardReader.run();
     selector.run();
     timer1.update();
     timer2.update();
     menu->TriggerEvent(Event::EV_UPDATE_LOOP);
-
-
-  if (isCardDetected()) 
-  {
-    MFRC522::Uid cardUID = getDetectedCardUID();
-    printUID(cardUID);
-  }  
 }
 
 void App_printFreeMemory()
@@ -144,40 +131,4 @@ void App_printFreeMemory()
     Serial.print("Free Memory: ");
     //Serial.print(freeMemory());
     Serial.println(" bytes");
-}
-
-
-/*---------------------------------[rfid]------------------------------*/
-bool isCardDetected()
-{
-  // Look for new cards
-  if ( ! mfrc522.PICC_IsNewCardPresent()) 
-  {
-    return false;
-  }
-  // Select one of the cards
-  if ( ! mfrc522.PICC_ReadCardSerial()) 
-  {
-    return false;
-  }
-  return true;
-}
-
-MFRC522::Uid getDetectedCardUID(void)
-{
-  return mfrc522.uid;
-}
-
-void printUID(MFRC522::Uid uid)
-{
-  Serial.print("UID Tag: ");
-
-  for (byte i = 0; i < uid.size; i++) 
-  {
-    Serial.print(" ");
-    Serial.print(uid.uidByte[i] < 0x10 ? " 0" : " ");
-    Serial.print(uid.uidByte[i], HEX);
-  }
-
-  Serial.println();
 }
