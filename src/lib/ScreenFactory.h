@@ -7,6 +7,7 @@
 #include "InfoScreen.h"
 #include "TextInputScreen.h"
 #include "HomeScreen.h"
+#include "NewCardScreen.h"
 
 class ScreenWrapper {
     Screen* screen;
@@ -34,6 +35,10 @@ public:
 
     ScreenWrapper(MenuController &c, HomeModel *m) {
         screen = new HomeScreen(c, *m);
+    }
+
+    ScreenWrapper(MenuController &c, NewCardModel *m) {
+        screen = new NewCardScreen(c, *m);
     }
 
     /* Add more constuctor here */

@@ -39,13 +39,20 @@ static MenuController *menu;
 static Selector selector(CLK_PIN, DT_PIN, SW_PIN);
 
 static InfoModel infoModel;
-static String textInput;
+static String textInput = "              "; // this instance should be part of NewCardModel
 static HomeModel homeModel(cardReader, accessControl);
+static NewCardModel newCardModel(cardReader, accessControl, textInput);
 
 static ScreenFactory<String> textInputSF(&textInput);
 static ScreenFactory<HomeModel> homeSF(&homeModel);
+static ScreenFactory<NewCardModel> newCardSF(&newCardModel);
 
 CREATE_SCREEN(screen_home   , "HOME" , &homeSF);
+CREATE_SCREEN(screen_cfg    , "CONFIG" , NULL);
+CREATE_SCREEN(screen_new    , "Register new card" , &newCardSF);
+CREATE_SCREEN(screen_list   , "List of cards" , NULL);
+CREATE_SCREEN(screen_input  , "Text Input"  , &textInputSF);
+
 
 /*---------------------------------[PRIVATE FUNCTIONS]------------------------*/
 
@@ -77,6 +84,7 @@ void App_setup()
 {
     Serial.println("### APP INIT ###");
 
+    textInput.clear();
     cardReader.init();
 
     selector.addCallback(Selector::CbType::CCW_CB, ccw_event_cb);
@@ -87,13 +95,18 @@ void App_setup()
     menu = new MenuController(lcd);
 
     menu->AddScreen("/home"             , screen_home);
+    menu->AddScreen("/home/cfg"         , screen_cfg);
+    menu->AddScreen("/home/cfg/new"     , screen_new);
+    menu->AddScreen("/home/cfg/new/name", screen_input);
+    menu->AddScreen("/home/cfg/list"    , screen_list);
+    
+    
 
-    menu->Enter("/home");
+    menu->Enter("/home/cfg/new");
 }
 
 void App_loop()
 {
-    cardReader.run();
     selector.run();
     menu->TriggerEvent(Event::EV_UPDATE_LOOP);
 }

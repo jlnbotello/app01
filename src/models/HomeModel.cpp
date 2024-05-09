@@ -64,8 +64,6 @@ bool HomeModel::run()
             set_message("Access DENIED   ");
         }
 
-        accessControl.printEntries();
-
         return true;        
     }
 

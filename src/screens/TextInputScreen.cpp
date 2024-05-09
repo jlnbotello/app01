@@ -147,8 +147,20 @@ bool TextInputScreen::ev_confirm_pressed() {
     if(c != 0)
     {
         Serial.println(c);
-        _inputLine[_inputLineIndex] = c;
-        _inputLineIndex++;
+
+        if(c == '<')
+        {
+            model.clear();
+            model.concat("                   ");
+            model.clear();
+        }
+        else
+        {
+            model.concat(c);
+            _inputLine[_inputLineIndex] = c;
+            _inputLineIndex++;                        
+        }
+        
         update();
     }
     else
@@ -179,9 +191,9 @@ bool TextInputScreen::ev_update() {
 TextInputScreen::TextInputScreen(MenuController &c, String &m) : Screen(c), model(m)
 {
     static char KeyboardStringLine1[] = "ABCDEFGHIJKLMNOPQRST";
-    static char KeyboardStringLine2[] = "UVWXYZ0123456789";
+    static char KeyboardStringLine2[] = "UVWXYZ0123456789<";
     
-    LiquidLine *pInputLine      = new LiquidLine(0, 0, ">", _inputLine);
+    LiquidLine *pInputLine      = new LiquidLine(0, 0, ">", DYN_LINE(model.c_str()));
     LiquidLine *pKeyboardLine1  = new LiquidLine(0, 1, KeyboardStringLine1);
     LiquidLine *pKeyboardLine2  = new LiquidLine(0, 2, KeyboardStringLine2);
 
@@ -194,7 +206,6 @@ TextInputScreen::TextInputScreen(MenuController &c, String &m) : Screen(c), mode
     _cursor->addString(2, KeyboardStringLine2, 15);
 
     // empty spaces
-    _cursor->addForbiddenPosition(16, 2);
     _cursor->addForbiddenPosition(17, 2);
     _cursor->addForbiddenPosition(18, 2);
     _cursor->addForbiddenPosition(19, 2);

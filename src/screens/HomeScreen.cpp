@@ -73,22 +73,13 @@ bool HomeScreen::ev_ccw_step()
 
 bool HomeScreen::ev_confirm_pressed()
 {
-  model.clear_message();
-  update();
-  model.set_message("Access GRANTED");
-  update();
+  m_controller.Enter("/home/cfg");
   return true;
 };
 
 bool HomeScreen::ev_cancel_pressed()
 {
-  //m_controller.Back();
-  // to avoid clearing all the display. m_menu->update()
-  
-  model.clear_message();
-  update();
-  model.set_message("Access DENIED");
-  update();
+  m_controller.Back();
   return true;
 };
 

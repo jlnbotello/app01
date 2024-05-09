@@ -97,6 +97,21 @@ public:
         return (uint16_t) ((0xFF000000 & uid) >> 24) + (0x000000FF & uid); // MSB | LSB
     }
 
+    String getCardUID_Str(void)
+    {
+        String str = "";
+        
+        for (byte i = 0; i < mfrc522.uid.size; i++) 
+        {
+            str.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
+            str.concat(String(mfrc522.uid.uidByte[i], HEX));
+        }
+
+        str.toUpperCase();
+
+        return str.substring(1);
+    }
+
 private:
     MFRC522 & mfrc522;
 };
