@@ -8,6 +8,7 @@
 #include "Selector.h"
 #include "ScreenFactory.h"
 #include "CardReader.h"
+#include "AccessControl.h"
 
 /*---------------------------------[PREPROCESSOR DEFS]------------------------*/
 /* LCD */
@@ -30,6 +31,7 @@
 
 static MFRC522 mfrc522(SS_PIN, RST_PIN);
 static CardReader cardReader(mfrc522);
+static AccessControl accessControl;
 
 static LiquidCrystal_I2C lcd(LCD_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 static MenuController *menu;
@@ -38,7 +40,7 @@ static Selector selector(CLK_PIN, DT_PIN, SW_PIN);
 
 static InfoModel infoModel;
 static String textInput;
-static HomeModel homeModel;
+static HomeModel homeModel(cardReader, accessControl);
 
 static ScreenFactory<String> textInputSF(&textInput);
 static ScreenFactory<HomeModel> homeSF(&homeModel);

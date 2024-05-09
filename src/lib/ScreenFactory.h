@@ -6,6 +6,7 @@
 #include "ContainerScreen.h"
 #include "InfoScreen.h"
 #include "TextInputScreen.h"
+#include "HomeScreen.h"
 
 class ScreenWrapper {
     Screen* screen;
@@ -29,6 +30,10 @@ public:
 
     ScreenWrapper(MenuController &c, String *m) {
         screen = new TextInputScreen(c, *m);
+    }
+
+    ScreenWrapper(MenuController &c, HomeModel *m) {
+        screen = new HomeScreen(c, *m);
     }
 
     /* Add more constuctor here */
