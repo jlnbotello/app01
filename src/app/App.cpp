@@ -102,7 +102,7 @@ void App_setup()
     
     
 
-    menu->Enter("/home/cfg/new");
+    menu->Enter("/home");
 }
 
 void App_loop()
