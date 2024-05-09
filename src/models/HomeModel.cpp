@@ -55,7 +55,7 @@ bool HomeModel::run()
         enableCardReading = false;
         timer.start();
 
-        if(accessControl.checkAccess(CardReader.getCardUID_2B()))
+        if(accessControl.checkAccess(cardReader.getCardUID_2B()))
         {
             set_message("Access GRANTED  ");
         }

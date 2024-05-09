@@ -93,7 +93,7 @@ public:
 
     uint16_t getCardUID_2B(void)
     {
-        uint32_t uid = cardReader.getCardUID();
+        uint32_t uid = getCardUID_4B();
         return (uint16_t) ((0xFF000000 & uid) >> 24) + (0x000000FF & uid); // MSB | LSB
     }
 
