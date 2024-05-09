@@ -104,6 +104,16 @@ public:
         return false;
     }
 
+    uint32_t getCardUID(void)
+    {
+        if(mfrc522.uid.size == 4)
+        {
+            return mfrc522.uid.uidByte[0] << 24 | mfrc522.uid.uidByte[1] << 16 | mfrc522.uid.uidByte[2] << 8 | mfrc522.uid.uidByte[3];
+        }
+
+        return 0; // 7 and 10 bytes cards support is not implemented
+    }
+
 private:
     MFRC522 & mfrc522;
     AccessControl & accessControl;
