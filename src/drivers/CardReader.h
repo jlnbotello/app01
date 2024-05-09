@@ -81,7 +81,7 @@ public:
         return false;
     }
 
-    uint32_t getCardUID(void)
+    uint32_t getCardUID_4B(void)
     {
         if(mfrc522.uid.size == 4)
         {
@@ -89,6 +89,12 @@ public:
         }
 
         return 0; // 7 and 10 bytes cards support is not implemented
+    }
+
+    uint16_t getCardUID_2B(void)
+    {
+        uint32_t uid = cardReader.getCardUID();
+        return (uint16_t) ((0xFF000000 & uid) >> 24) + (0x000000FF & uid); // MSB | LSB
     }
 
 private:
