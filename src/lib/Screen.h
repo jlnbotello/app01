@@ -5,6 +5,7 @@
 #include <LiquidMenu.h>
 #include "MenuController.h"
 
+#define DYN_LINE(pChar) (const char (&)[1])(*(pChar))
 
 class Screen
 {

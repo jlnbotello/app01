@@ -24,7 +24,7 @@ Screen(c)
     if(child)
     {
       //Serial.println("Add line");
-      LiquidLine * line = new LiquidLine(1, i,(const char (&)[1])(*child->data->name));
+      LiquidLine * line = new LiquidLine(1, i, DYN_LINE(child->data->name));
       line->set_asProgmem(1);
       line->attach_function(1, stub);
       addLine(line);      
