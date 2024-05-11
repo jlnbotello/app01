@@ -3,10 +3,16 @@
 
 #include "Screen.h"
 
+class ContainerModel
+{
+public:
+  ContainerModel() {};
+};
+
 class ContainerScreen : public Screen
 {
 public:  
-  ContainerScreen(MenuController &c);
+  ContainerScreen(MenuController &c, ContainerModel &m);
 
   bool update();
   bool onEvent(Event event) override;

@@ -22,12 +22,8 @@ public:
 private:
   bool url_remove_last_tag(char* url, size_t maxUrlSize);
 
-  void AddCustomScreen(const char* url, const char* name, ScreenFactoryInterface * screen);
-  void AddContainer(const char* url, const char* name);
-
   Services m_services;
   Screen * m_current_screen = nullptr;
-  ScreenFactoryInterface * m_container_sfi;
 };
 
 #endif /* __MENU_CONTROLLER_H__ */

@@ -38,19 +38,20 @@ static MenuController *menu;
 
 static Selector selector(CLK_PIN, DT_PIN, SW_PIN);
 
-static InfoModel infoModel;
+static ContainerModel containerModel;
 static String textInput = "              "; // this instance should be part of NewCardModel
 static HomeModel homeModel(cardReader, accessControl);
 static NewCardModel newCardModel(cardReader, accessControl, textInput);
 
-static ScreenFactory<String> textInputSF(&textInput);
-static ScreenFactory<HomeModel> homeSF(&homeModel);
-static ScreenFactory<NewCardModel> newCardSF(&newCardModel);
+static ScreenFactory<ContainerScreen, ContainerModel> containerSF(&containerModel);
+static ScreenFactory<TextInputScreen, String> textInputSF(&textInput);
+static ScreenFactory<HomeScreen, HomeModel> homeSF(&homeModel);
+static ScreenFactory<NewCardScreen, NewCardModel> newCardSF(&newCardModel);
 
 CREATE_SCREEN(screen_home   , "HOME" , &homeSF);
-CREATE_SCREEN(screen_cfg    , "CONFIG" , NULL);
+CREATE_SCREEN(screen_cfg    , "CONFIG" , &containerSF);
 CREATE_SCREEN(screen_new    , "Register new card" , &newCardSF);
-CREATE_SCREEN(screen_list   , "List of cards" , NULL);
+CREATE_SCREEN(screen_list   , "List of cards" , &containerSF);
 CREATE_SCREEN(screen_input  , "Text Input"  , &textInputSF);
 
 

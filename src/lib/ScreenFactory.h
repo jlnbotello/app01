@@ -9,61 +9,22 @@
 #include "HomeScreen.h"
 #include "NewCardScreen.h"
 
-class ScreenWrapper {
-    Screen* screen;
-
-public:
-    ScreenWrapper(MenuController &c, void* controller) {
-        screen = new ContainerScreen(c);
-    }
-
-    ScreenWrapper(MenuController &c, WeekModel* m) {
-        screen = new WeekScreen(c, *m);
-    }
-
-    ScreenWrapper(MenuController &c, TimeModel *m) {
-        screen = new TimeScreen(c, *m);
-    }
-
-    ScreenWrapper(MenuController &c, InfoModel *m) {
-        screen = new InfoScreen(c, *m);
-    }
-
-    ScreenWrapper(MenuController &c, String *m) {
-        screen = new TextInputScreen(c, *m);
-    }
-
-    ScreenWrapper(MenuController &c, HomeModel *m) {
-        screen = new HomeScreen(c, *m);
-    }
-
-    ScreenWrapper(MenuController &c, NewCardModel *m) {
-        screen = new NewCardScreen(c, *m);
-    }
-
-    /* Add more constuctor here */
-
-    Screen* getScreen() {
-        return screen;
-    }
-};
-
 class ScreenFactoryInterface
 {
 public:
     virtual Screen* createScreen(MenuController &c) = 0;
 };
 
-template <typename T>
+template <typename ScreenType, typename ModelType>
 class ScreenFactory: public ScreenFactoryInterface{
-    T* model = nullptr;
+    ModelType* model = nullptr;
 public:
-    ScreenFactory(T * m): model(m){};
+    ScreenFactory(ModelType * m): model(m){};
     
     Screen* createScreen(MenuController &c) override 
     {
-        ScreenWrapper wrapper(c, model);
-        return wrapper.getScreen();
+        //ScreenWrapper wrapper(c, model);
+        return new ScreenType(c, *model);
     }
 
     ScreenFactoryInterface * factory()

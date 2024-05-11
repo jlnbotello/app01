@@ -26,48 +26,19 @@ MenuController::MenuController(DisplayClass &lcd)
 
   m_services.pLcd->begin();
   m_services.pLcd->backlight();
-
-  ScreenFactory<void> * sf = new ScreenFactory<void> (nullptr);
-  m_container_sfi = sf->factory();
-}
-
-void MenuController::AddCustomScreen(const char* url, const char* name, ScreenFactoryInterface * sfi)
-{
-  if(url && name && sfi)
-  {
-    MenuNode * pNode = (MenuNode *) calloc(1, sizeof(MenuNode));
-    if(pNode)
-    {
-      pNode->name = name;
-      pNode->factory = sfi;
-      m_services.pNavSys->addNode(url, pNode);
-    }
-  }
-}
-
-void MenuController::AddContainer(const char* url, const char* name)
-{
-  if(url && name)
-  {
-    MenuNode * pNode = (MenuNode *) calloc(1, sizeof(MenuNode));
-    if(pNode)
-    {
-      pNode->name = name;
-      pNode->factory = m_container_sfi;
-      m_services.pNavSys->addNode(url, pNode);
-    }
-  }
 }
 
 void MenuController::AddScreen(const char* url, const ScreenHandler & screen)
 {
-  if(screen.factory == NULL)
+  if(url && screen.title && screen.factory)
   {
-    AddContainer(url, screen.title);
-  }
-  else
-  {
-    AddCustomScreen(url, screen.title, screen.factory);
+    MenuNode * pNode = (MenuNode *) calloc(1, sizeof(MenuNode));
+    if(pNode)
+    {
+      pNode->name = screen.title;
+      pNode->factory = screen.factory;
+      m_services.pNavSys->addNode(url, pNode);
+    }
   }
 }
 

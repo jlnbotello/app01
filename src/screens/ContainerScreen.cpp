@@ -2,7 +2,7 @@
 
 void stub(){};
 
-ContainerScreen::ContainerScreen(MenuController &c) : 
+ContainerScreen::ContainerScreen(MenuController &c, ContainerModel &m) : 
 Screen(c)
 {
 
