@@ -111,6 +111,8 @@ bool NewCardScreen::ev_confirm_pressed()
 
 bool NewCardScreen::ev_cancel_pressed()
 {
+  model.textInput.clear();
+  model.textInput.concat('\0');
   m_controller.Back();
   return true;
 };

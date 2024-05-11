@@ -151,17 +151,20 @@ bool TextInputScreen::ev_confirm_pressed() {
         if(c == '<')
         {
             model.clear();
-            model.concat("                   ");
+            model.concat('\0');
             model.clear();
+            m_menu->update(); // update all the screen and rewrite
         }
         else
         {
             model.concat(c);
             _inputLine[_inputLineIndex] = c;
-            _inputLineIndex++;                        
+            _inputLineIndex++;
+            update();                       
         }
-        
-        update();
+     
+        // reposition cursor
+        m_controller.GetServices()->pLcd->setCursor(_cursor->getCol(), _cursor->getRow());
     }
     else
     {
