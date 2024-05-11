@@ -6,6 +6,8 @@
 #include "NoDelay.h"
 #include "AccessControl.h"
 
+#define RELAY_PIN 1 // TX pin. To use the Serial port comment pinMode(RELAY_PIN, OUTPUT)
+
 class HomeModel
 {
   String message;

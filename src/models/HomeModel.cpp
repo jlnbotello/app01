@@ -4,7 +4,7 @@
 
 HomeModel::HomeModel(CardReader & r, AccessControl & ac): cardReader(r), accessControl(ac)
 {
-    timer.setdelay(1000); // 2 seconds (2000ms)
+    timer.setdelay(3000);
     message = EMPTY_STRING; //TODO: change ugly implementation. make enough big to cover all the row (avoid buffer relocation)
 }
 
@@ -76,6 +76,7 @@ bool HomeModel::run()
         {
             set_cardName(accessControl.getName(cardUID));
             set_message("Access GRANTED  ");
+            digitalWrite(RELAY_PIN, LOW);
         }
         else
         {
@@ -85,13 +86,13 @@ bool HomeModel::run()
         return true;        
     }
 
-    // if 2 seconds have passed
     if(timer.update())
     {
         timer.stop();
         enableCardReading = true;
         clear_cardName();
         set_message("No card detected");
+        digitalWrite(RELAY_PIN, HIGH);
         return true;    
     }
     return false;

@@ -87,6 +87,9 @@ void App_setup()
 {
     Serial.println("### APP INIT ###");
 
+    pinMode(RELAY_PIN, OUTPUT); // Comment to disable relay and use Serial instead
+    digitalWrite(RELAY_PIN, HIGH);
+
     textInput.clear();
     cardReader.init();
 
