@@ -12,12 +12,14 @@
 /*---------------------------------[PUBLIC FUNCTIONS]-------------------------*/
 HomeScreen::HomeScreen(MenuController &c, HomeModel &m) : model(m), Screen(c)
 {  
-  LiquidLine *pTime   = new LiquidLine(0, 0, "09 May 2024    14:08");
-  LiquidLine *pData   = new LiquidLine(0, 1, "WELCOME");  
-  LiquidLine *pMsg    = new LiquidLine(0, 3, DYN_LINE(model.get_message()));
+  //LiquidLine *pDatetime   = new LiquidLine(0, 0, "09 May 2024    14:08");
+  LiquidLine *pWelcome   = new LiquidLine(0, 0, "WELCOME");
+  LiquidLine *pName      = new LiquidLine(0, 1, DYN_LINE(model.get_cardName()));  
+  LiquidLine *pMsg       = new LiquidLine(0, 3, DYN_LINE(model.get_message()));
 
-  addLine(pData);
-  addLine(pTime);
+  //addLine(pDatetime);
+  addLine(pWelcome);
+  addLine(pName);
   addLine(pMsg);
 }
 

@@ -94,6 +94,20 @@ public:
         return findEntry(identifier) != INVALID_INDEX;
     }
 
+    String getName(uint16_t identifier)
+    {
+        uint8_t index = findEntry(identifier);
+
+        if(index != INVALID_INDEX)
+        {
+            return String(entries[index].name);
+        }
+        else
+        {
+            return String(DEFAULT_NAME);
+        }
+    }
+
     uint8_t findEntry(uint16_t identifier)
     {
         for (int i = 0; i < ACCESS_ENTRIES; i++)

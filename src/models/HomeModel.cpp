@@ -48,6 +48,21 @@ const char *HomeModel::get_message()
     return this->message.c_str();
 }
 
+void HomeModel::set_cardName(String cardName)
+{
+    this->cardName = cardName;
+}
+
+void HomeModel::clear_cardName()
+{
+    this->cardName = EMPTY_STRING;
+}
+
+const char *HomeModel::get_cardName()
+{
+    return this->cardName.c_str();
+}
+
 bool HomeModel::run()
 {
     if (enableCardReading && cardReader.isNewCardPresent())
@@ -55,8 +70,11 @@ bool HomeModel::run()
         enableCardReading = false;
         timer.start();
 
-        if(accessControl.checkAccess(cardReader.getCardUID_2B()))
+        uint16_t cardUID = cardReader.getCardUID_2B();
+
+        if(accessControl.checkAccess(cardUID))
         {
+            set_cardName(accessControl.getName(cardUID));
             set_message("Access GRANTED  ");
         }
         else
@@ -72,6 +90,7 @@ bool HomeModel::run()
     {
         timer.stop();
         enableCardReading = true;
+        clear_cardName();
         set_message("No card detected");
         return true;    
     }

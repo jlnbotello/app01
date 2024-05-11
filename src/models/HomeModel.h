@@ -9,6 +9,7 @@
 class HomeModel
 {
   String message;
+  String cardName = "                    ";
   CardReader & cardReader;
   bool enableCardReading = true;
   noDelay timer; // 2 seconds
@@ -27,6 +28,9 @@ public:
   void set_message(String message);
   void clear_message();
   const char *get_message();
+  void set_cardName(String cardName);
+  const char *get_cardName();
+  void clear_cardName();
   bool run();
 };
 
