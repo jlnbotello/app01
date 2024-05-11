@@ -22,6 +22,9 @@ typedef struct {
 class AccessControl {
 private:
     AccessEntry entries[ACCESS_ENTRIES];
+    AccessEntry * nextEntry = NULL;
+    int nEntries = 0;
+    int iteratorIndex = 0;
 public:
     AccessControl()
     {
@@ -33,6 +36,10 @@ public:
             strncpy(entries[i].name, DEFAULT_NAME, NAME_LENGTH);
             entries[i].name[NAME_LENGTH] = '\0';
             restoreFromEEPROM(i);
+            if(entries[i].identifier != NULL_IDENTIFIER)
+            {
+                nEntries++;
+            }
         }
     }
 
@@ -115,6 +122,42 @@ public:
             Serial.print(" ");
             Serial.println(entries[i].name);
         }
+    }
+
+    bool hasNext()
+    {
+        if(iteratorIndex >= ACCESS_ENTRIES)
+        {
+            nextEntry = NULL;
+            return false;
+        }
+        
+        AccessEntry * entry = &entries[iteratorIndex++];
+
+        if(entry->identifier != NULL_IDENTIFIER)
+        {
+            nextEntry = entry;
+            return true;
+        }
+        else
+        {
+            return hasNext();
+        }
+    }
+
+    AccessEntry * next()
+    {
+        return nextEntry;
+    }
+
+    void resetIterator()
+    {
+        iteratorIndex = 0;
+    }
+
+    int getEntriesCount()
+    {
+        return nEntries;
     }
 
     void clearEntries()

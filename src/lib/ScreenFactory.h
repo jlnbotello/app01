@@ -8,6 +8,7 @@
 #include "TextInputScreen.h"
 #include "HomeScreen.h"
 #include "NewCardScreen.h"
+#include "CardListScreen.h"
 
 class ScreenFactoryInterface
 {

@@ -42,16 +42,18 @@ static ContainerModel containerModel;
 static String textInput = "              "; // this instance should be part of NewCardModel
 static HomeModel homeModel(cardReader, accessControl);
 static NewCardModel newCardModel(cardReader, accessControl, textInput);
+static CardListModel cardListModel(accessControl);
 
 static ScreenFactory<ContainerScreen, ContainerModel> containerSF(&containerModel);
 static ScreenFactory<TextInputScreen, String> textInputSF(&textInput);
 static ScreenFactory<HomeScreen, HomeModel> homeSF(&homeModel);
 static ScreenFactory<NewCardScreen, NewCardModel> newCardSF(&newCardModel);
+static ScreenFactory<CardListScreen, CardListModel> cardListSF(&cardListModel);
 
 CREATE_SCREEN(screen_home   , "HOME" , &homeSF);
 CREATE_SCREEN(screen_cfg    , "CONFIG" , &containerSF);
-CREATE_SCREEN(screen_new    , "Register new card" , &newCardSF);
-CREATE_SCREEN(screen_list   , "List of cards" , &containerSF);
+CREATE_SCREEN(screen_new    , "Add card" , &newCardSF);
+CREATE_SCREEN(screen_list   , "Remove card" , &cardListSF);
 CREATE_SCREEN(screen_input  , "Text Input"  , &textInputSF);
 
 
